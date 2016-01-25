@@ -1,0 +1,67 @@
+name: Ombak
+type: theme
+description: 'Ombak by node10.'
+# version: VERSION
+# core: 8.x
+
+stylesheets:
+  all:
+    - css/app.css
+    - css/component.css
+stylesheets-remove:
+  - file.admin.css
+  - system.theme.css
+
+libraries:
+  - ombak/foundation
+  - ombak/foundation.abide
+  - ombak/foundation.accordion
+  - ombak/foundation.alert
+  - ombak/foundation.clearing
+  - ombak/foundation.dropdown
+  - ombak/foundation.equalizer
+  - ombak/foundation.interchange
+  - ombak/foundation.joyride
+  - ombak/foundation.magellan
+  - ombak/foundation.offcanvas
+  - ombak/foundation.orbit
+  - ombak/foundation.reveal
+  - ombak/foundation.slider
+  - ombak/foundation.tab
+  - ombak/foundation.tooltip
+  - ombak/foundation.topbar
+  - ombak/ombak
+
+regions:
+  header: Header
+  help: Help
+  highlighted: Highlighted
+  featured: Featured
+  preface_first: 'Preface first'
+  preface_middle: 'Preface middle'
+  preface_last: 'Preface last'
+  content: Content
+  content_bottom: 'Content bottom'
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  triptych_first: 'Triptych first'
+  triptych_middle: 'Triptych middle'
+  triptych_last: 'Triptych last'
+  footer_firstcolumn: 'Footer first column'
+  footer_secondcolumn: 'Footer second column'
+  footer_thirdcolumn: 'Footer third column'
+  footer_fourthcolumn: 'Footer fourth column'
+  footer: Footer
+regions_hidden:
+  page_top: 'Page Top'
+  page_bottom: 'Page bottom'
+
+settings:
+  features:
+    top_bar_search: true
+
+# Information added by Drupal.org packaging script on 2014-08-26
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'ombak'
+datestamp: 1409064839

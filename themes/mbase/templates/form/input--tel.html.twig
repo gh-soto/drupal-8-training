@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Theme override for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="input-group">
+  <span class="input-group-addon">
+    <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+  </span>
+  <input{{ attributes }} />{{ children }}
+</div>
+
+{% if attributes.title %}
+<p class="help-block"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ attributes.title }}</p>
+{% endif %}

@@ -1,0 +1,10 @@
+/**
+ * Menu local task.
+ *
+ * Theme drupal menu local task as tabs.
+ * Add margin bottom since there is no tabs content structure.
+ *
+ */
+.tabs.primary {
+  margin-bottom: $column-gutter/2 !important;
+}

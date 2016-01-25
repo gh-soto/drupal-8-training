@@ -1,0 +1,163 @@
+ombak:
+  version: VERSION
+  js:
+    js/ombak.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation:
+  remote: https://github.com/zurb/foundation
+  version: &foundation_version 5.3.1
+  license: &foundation_license
+    name: MIT
+    url: https://github.com/zurb/foundation/blob/v5.3.1/LICENSE
+    gpl-compatible: true
+  js:
+    js/foundation/foundation.js: {}
+  dependencies:
+    - core/modernizr
+    - core/jquery
+
+foundation.abide:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.abide.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.accordion:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.accordion.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.alert:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.alert.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.clearing:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.clearing.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.dropdown:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.dropdown.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.equalizer:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.equalizer.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.interchange:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.interchange.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.joyride:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.joyride.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.magellan:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.magellan.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.offcanvas:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.offcanvas.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.orbit:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.orbit.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.reveal:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.reveal.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.slider:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.slider.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.tab:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.tab.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.tooltip:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.tooltip.js: {}
+  dependencies:
+    - ombak/foundation
+
+foundation.topbar:
+  remote: https://github.com/zurb/foundation
+  version: *foundation_version
+  license: *foundation_license
+  js:
+    js/foundation/foundation.topbar.js: {}
+  dependencies:
+    - ombak/foundation

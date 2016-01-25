@@ -1,0 +1,11 @@
+langcode: en
+name: orbit
+label: Orbit
+effects:
+  82c1e20e-bcf9-42e3-8c00-dc30ee009cc0:
+    uuid: 82c1e20e-bcf9-42e3-8c00-dc30ee009cc0
+    id: image_scale_and_crop
+    weight: 0
+    data:
+      width: 1280
+      height: 360

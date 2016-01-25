@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/**
+ * @file
+ * Structural styles for Ombak’s UI component
+ */
+/**
+ * Details.
+ *
+ * Theme HTML5 details tag as foundation accordion.
+ *
+ */
+details {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+details > summary {
+  background: #efefef;
+  color: #222222;
+  padding: 1rem;
+  font-size: 1rem;
+}
+details > summary:hover {
+  background: #e3e3e3;
+}
+details > summary:active, details > summary:focus {
+  background: #e8e8e8;
+}
+details > summary > a {
+  color: #222222;
+  display: block;
+}
+details > summary > a:active, details > summary > a:focus, details > summary > a:hover {
+  color: #222222;
+}
+details > .details-wrapper {
+  padding: 0.9375rem;
+}
+
+/**
+ * Logo.
+ *
+ * Apply max height to logo in the top-bar.
+ *
+ */
+.top-bar .name img {
+  max-height: 35px;
+}
+
+/**
+ * Menu local task.
+ *
+ * Theme drupal menu local task as tabs.
+ * Add margin bottom since there is no tabs content structure.
+ *
+ */
+.tabs.primary {
+  margin-bottom: 0.9375rem !important;
+}

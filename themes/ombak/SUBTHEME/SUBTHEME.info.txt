@@ -1,0 +1,41 @@
+name: Ombak SUBTHEME
+type: theme
+description: 'Ombak subtheme by node10.'
+version: VERSION
+core: 8.x
+base theme: ombak
+
+stylesheets-override:
+  - css/app.css
+  - css/component.css
+# stylesheets-remove:
+#   - file.admin.css
+#   - system.theme.css
+
+# regions:
+#   header: Header
+#   help: Help
+#   highlighted: Highlighted
+#   featured: Featured
+#   preface_first: 'Preface first'
+#   preface_middle: 'Preface middle'
+#   preface_last: 'Preface last'
+#   content: Content
+#   content_bottom: 'Content bottom'
+#   sidebar_first: 'Sidebar first'
+#   sidebar_second: 'Sidebar second'
+#   triptych_first: 'Triptych first'
+#   triptych_middle: 'Triptych middle'
+#   triptych_last: 'Triptych last'
+#   footer_firstcolumn: 'Footer first column'
+#   footer_secondcolumn: 'Footer second column'
+#   footer_thirdcolumn: 'Footer third column'
+#   footer_fourthcolumn: 'Footer fourth column'
+#   footer: Footer
+# regions_hidden:
+#   page_top: 'Page Top'
+#   page_bottom: 'Page bottom'
+
+# settings:
+#   features:
+#     top_bar_search: true

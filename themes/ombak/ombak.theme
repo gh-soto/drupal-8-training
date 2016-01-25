@@ -1,0 +1,360 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Ombak theme.
+ */
+
+use Drupal\Component\Utility\String;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ombak_form_search_block_form_alter(&$form, &$form_state) {
+  if (!empty($form_state['build_info']['args'][0]['top_bar'])) {
+    $fontawesome = '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css';
+
+    $form['#attributes']['class'][] = 'row';
+    $form['#attributes']['class'][] = 'collapse';
+
+    $form['keys']['#attributes']['placeholder'] = $form['keys']['#title'];
+    $form['keys']['#prefix'] = '<div class="medium-9 small-10 columns">';
+    $form['keys']['#suffix'] = '</div>';
+
+    $form['actions']['#prefix'] = '<div class="medium-3 small-2 columns">';
+    $form['actions']['#suffix'] = '</div>';
+    $form['actions']['submit']['#attributes']['class'][] = 'expand';
+    $form['actions']['submit']['#theme_wrappers'] = array('input__submit__topbar');
+    $form['actions']['submit']['#attached']['css'][$fontawesome] = array('type' => 'external');
+  }
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function ombak_js_alter(&$javascript) {
+  global $theme_info;
+
+  if (isset($theme_info->base_themes)) {
+    $path = drupal_get_path('theme', $theme_info->name) . '/bower_components/foundation/js/foundation/';
+    $javascript['themes/ombak/js/foundation/foundation.js']['data'] = $path . 'foundation.js';
+
+    $files = array(
+      'abide',
+      'accordion',
+      'alert',
+      'clearing',
+      'dropdown',
+      'equalizer',
+      'interchange',
+      'joyride',
+      'magellan',
+      'offcanvas',
+      'orbit',
+      'reveal',
+      'slider',
+      'tab',
+      'tooltip',
+      'topbar',
+    );
+
+    foreach ($files as $file) {
+      $js = drupal_get_path('theme', 'ombak') . '/js/foundation/foundation.' . $file . '.js';
+      $data = $path . 'foundation.' . $file . '.js';
+      if (isset($javascript[$js]) && file_exists($data)) {
+        $javascript[$js]['data'] = $data;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function ombak_theme_suggestions_region_alter(array &$suggestions, array $variables) {
+  switch($variables['elements']['#region']) {
+    case 'preface_first':
+    case 'preface_middle':
+    case 'preface_last':
+      array_unshift($suggestions, 'region__preface');
+      break;
+
+    case 'help':
+    case 'content':
+    case 'sidebar_first':
+    case 'sidebar_second':
+      break;
+
+    case 'triptych_first':
+    case 'triptych_middle':
+    case 'triptych_last':
+      array_unshift($suggestions, 'region__triptych');
+      break;
+
+    case 'footer_firstcolumn':
+    case 'footer_secondcolumn':
+    case 'footer_thirdcolumn':
+    case 'footer_fourthcolumn':
+      array_unshift($suggestions, 'region__footer_column');
+      break;
+
+    default:
+      array_unshift($suggestions, 'region__wrapper');
+      break;
+  }
+}
+
+/**
+ * Implements THEME_menu_local_task().
+ */
+function ombak_menu_local_task($variables) {
+  $link = $variables['element']['#link'];
+  $link += array(
+    'localized_options' => array(),
+  );
+  $link_text = $link['title'];
+
+  if (!empty($variables['element']['#active'])) {
+    // Add text to indicate active tab for non-visual users.
+    $active = '<span class="visually-hidden">' . t('(active tab)') . '</span>';
+
+    // If the link does not contain HTML already, String::checkPlain() it now.
+    // After we set 'html'=TRUE the link will not be sanitized by l().
+    if (empty($link['localized_options']['html'])) {
+      $link['title'] = String::checkPlain($link['title']);
+    }
+    $link['localized_options']['html'] = TRUE;
+    $link_text = t('!local-task-title!active', array('!local-task-title' => $link['title'], '!active' => $active));
+  }
+  $link['localized_options']['set_active_class'] = TRUE;
+
+  if (!empty($link['href'])) {
+    // @todo - remove this once all pages are converted to routes.
+    $a_tag = l($link_text, $link['href'], $link['localized_options']);
+  }
+  else {
+    $a_tag = \Drupal::l($link_text, $link['route_name'], $link['route_parameters'], $link['localized_options']);
+  }
+
+  return '<li class="tab-title' . (!empty($variables['element']['#active']) ? ' active' : '') . '">' . $a_tag . '</li>';
+}
+
+/**
+ * Implements THEME_menu_tree().
+ */
+function ombak_menu_tree__main_menu($variables) {
+  return '<ul class="right">' . $variables['tree'] . '</ul>';
+}
+
+/**
+ * Implements THEME_menu_tree().
+ */
+function ombak_menu_tree__secondary_menu($variables) {
+  return '<ul class="left">' . $variables['tree'] . '</ul>';
+}
+
+/**
+ * Implements THEME_menu_tree().
+ */
+function ombak_menu_tree__dropdown($variables) {
+  return '<ul class="dropdown">' . $variables['tree'] . '</ul>';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function ombak_preprocess_page(&$variables) {
+  $module_handler = \Drupal::service('module_handler');
+
+  if ($module_handler->moduleExists('search') && theme_get_setting('features.top_bar_search')) {
+    $variables['topbar_search'] = \Drupal::formBuilder()->getForm('Drupal\search\Form\SearchBlockForm', array('top_bar' => TRUE));
+  }
+
+  $main_menu_links_source = _menu_get_links_source('main_links', 'main');
+  $secondary_menu_links_source = _menu_get_links_source('secondary_links', 'account');
+
+  $menu_tree = \Drupal::menuTree();
+  $parameters = new MenuTreeParameters();
+
+  foreach (array('main', 'secondary') as $menu) {
+    if ($variables[$menu . '_menu']) {
+      $source = ${$menu . '_menu_links_source'};
+      $tree = $menu_tree->load($source, $parameters);
+      $variables[$menu . '_menu'] = $menu_tree->build($tree);
+      $variables[$menu . '_menu']['#theme_wrappers'] = array('menu_tree__' . $menu . '_menu');
+
+      foreach(Element::children($variables[$menu . '_menu']) as $children) {
+        if (!empty($variables[$menu . '_menu'][$children]['#below'])) {
+          $variables[$menu . '_menu'][$children]['#below']['#theme_wrappers'] = array('menu_tree__dropdown');
+        }
+      }
+    }
+  }
+
+  $variables['content_attributes'] = new Attribute(array('class' => array()));
+  if ($variables['page']['sidebar_first']) {
+    $variables['sidebar_first_attributes'] = new Attribute(array('class' => array()));
+    $variables['sidebar_first_attributes']['class'][] = 'large-3';
+    if ($variables['page']['sidebar_second']) {
+      $variables['content_attributes']['class'][] = 'large-6';
+      $variables['sidebar_first_attributes']['class'][] = 'large-pull-6';
+    }
+    else {
+      $variables['content_attributes']['class'][] = 'large-9';
+      $variables['sidebar_first_attributes']['class'][] = 'large-pull-9';
+    }
+    $variables['content_attributes']['class'][] = 'large-push-3';
+
+    $variables['sidebar_first_attributes']['class'][] = 'columns';
+    $variables['sidebar_first_attributes']['role'] = 'complementary';
+  }
+  elseif ($variables['page']['sidebar_second']) {
+    $variables['content_attributes']['class'][] = 'large-9';
+  }
+  else {
+    $variables['content_attributes']['class'][] = 'large-12';
+  }
+  $variables['content_attributes']['class'][] = 'columns';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for pager.html.twig.
+ */
+function ombak_preprocess_pager(&$variables) {
+  $variables['items']['#attributes']['class'] = array('pagination');
+
+  if (!empty($variables['items']['#items'])) {
+    foreach ($variables['items']['#items'] as $key => $item) {
+      if (isset($item['#markup'])) {
+        $class = array_search('pager-current', $item['#wrapper_attributes']['class']);
+        if ($class !== FALSE ) {
+          $variables['items']['#items'][$key]['#wrapper_attributes']['class'][$class] = 'current';
+        }
+
+        $class = array_search('pager-ellipsis', $item['#wrapper_attributes']['class']);
+        if ($class !== FALSE ) {
+          $variables['items']['#items'][$key]['#wrapper_attributes']['class'][$class] = 'unavailable';
+        }
+
+        $variables['items']['#items'][$key]['link'] = array(
+          '#type' => 'link',
+          '#title' => $item['#markup'],
+          '#href' => '#',
+          '#options' => array(
+            'external' => TRUE,
+          ),
+        );
+
+        unset($variables['items']['#items'][$key]['#markup']);
+      }
+      else {
+        $first = array_search('pager-first', $item['#wrapper_attributes']['class']);
+        $last = array_search('pager-last', $item['#wrapper_attributes']['class']);
+
+        if ($first !== FALSE) {
+          $variables['items']['#items'][$key]['#wrapper_attributes']['class'][$first] = 'arrow';
+        }
+        elseif ($last !== FALSE) {
+          $variables['items']['#items'][$key]['#wrapper_attributes']['class'][$last] = 'arrow';
+        }
+        else {
+          unset ($variables['items']['#items'][$key]['#wrapper_attributes']['class']);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for region.html.twig.
+ */
+function ombak_preprocess_region(&$variables) {
+  switch($variables['region']) {
+    case 'help':
+    case 'sidebar_first':
+      break;
+
+    case 'sidebar_second':
+      $variables['attributes']['class'][] = 'large-3';
+      $variables['attributes']['class'][] = 'columns';
+      $variables['attributes']['role'] = 'complementary';
+      break;
+
+    case 'content':
+      break;
+
+    case 'preface_first':
+    case 'preface_middle':
+    case 'preface_last':
+    case 'triptych_first':
+    case 'triptych_middle':
+    case 'triptych_last':
+      $variables['attributes']['class'][] = 'large-4';
+      $variables['attributes']['class'][] = 'columns';
+      break;
+
+    case 'footer_firstcolumn':
+    case 'footer_secondcolumn':
+    case 'footer_thirdcolumn':
+    case 'footer_fourthcolumn':
+      $variables['attributes']['class'][] = 'large-3';
+      $variables['attributes']['class'][] = 'columns';
+      break;
+
+    default:
+      $variables['id'] = drupal_html_id($variables['region']);
+      $variables['attributes']['class'][] = 'large-12';
+      $variables['attributes']['class'][] = 'columns';
+      break;
+  }
+
+  $variables['attributes']['class'][] = drupal_clean_id_identifier('layout-' . $variables['region']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for status-messages.html.twig.
+ */
+function ombak_preprocess_status_messages(&$variables) {
+  $types = array(
+    'status' => 'success',
+    'warning' => 'warning',
+    'error' => 'alert',
+  );
+
+  $variables['type_class'] = array(
+    'status' => 'success',
+    'warning' => 'warning',
+    'error' => 'alert',
+  );
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for links.html.twig.
+ */
+function ombak_preprocess_links(&$variables) {
+  if ($variables['theme_hook_original'] == 'links__system_main_menu') {
+    $variables['attributes']['class'][] = 'right';
+  }
+  elseif ($variables['theme_hook_original'] == 'links__system_secondary_menu') {
+    $variables['attributes']['class'][] = 'left';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for theme_menu_link.
+ */
+function ombak_preprocess_menu_link(&$variables) {
+  $active_trail = \Drupal::service('menu.active_trail');
+  $original = $variables['element']['#original_link'];
+
+  if (in_array($original->getPluginId(), $active_trail->getActiveTrailIds($original->getMenuName()))) {
+    $variables['element']['#attributes']['class'][] = 'active';
+  }
+
+  if (!empty($variables['element']['#below'])) {
+    $variables['element']['#attributes']['class'][] = 'has-dropdown';
+  }
+}

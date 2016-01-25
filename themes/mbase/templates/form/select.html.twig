@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override for a select element.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the select tag.
+ * - options: The option element children.
+ *
+ * @see template_preprocess_select()
+ */
+#}
+{%
+  set classes = [
+    'form-control',
+  ]
+%}
+<select{{ attributes.addClass(classes) }}>{{ options }}</select>
+{% if attributes.title %}
+<p class="help-block"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> {{ attributes.title }}</p>
+{% endif %}

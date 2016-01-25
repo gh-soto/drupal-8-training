@@ -1,0 +1,9 @@
+/**
+ * Logo.
+ *
+ * Apply max height to logo in the top-bar.
+ *
+ */
+.top-bar .name img {
+  max-height: $topbar-height - 10;
+}

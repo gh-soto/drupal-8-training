@@ -1,0 +1,87 @@
+# Container
+# --------------
+mbase_fluid_container: 0
+
+# Buttons
+# --------------
+mbase_button_size: ''
+mbase_button_colorize: 1
+mbase_button_iconize: 1
+
+# Images
+# --------------
+mbase_image_shape: ''
+mbase_image_responsive: 1
+
+# Tables
+# --------------
+mbase_table_bordered: 1
+mbase_table_condensed: 1
+mbase_table_hover: 1
+mbase_table_striped: 1
+mbase_table_responsive: 1
+
+# Breadcrumbs
+# --------------
+mbase_breadcrumb: 1
+mbase_breadcrumb_home: 1
+mbase_breadcrumb_title: 1
+mbase_breadcrumb_text: 'You are here : '
+
+# Navbar
+# --------------
+mbase_navbar_position: 'static-top'
+mbase_navbar_inverse: 0
+
+# Region Wells
+# --------------
+mbase_region_well-sidebar_first: ''
+mbase_region_well-sidebar_second: ''
+
+# Anchors
+# --------------
+mbase_anchors_fix: 1
+mbase_anchors_smooth_scrolling: 1
+
+# Forms
+# --------------
+mbase_forms_required_has_error: 0
+mbase_forms_has_error_value_toggle: 1
+mbase_forms_smart_descriptions: 1
+mbase_forms_smart_descriptions_limit: 250
+mbase_forms_smart_descriptions_allowed_tags: 'b, code, em, i, kbd, span, strong, a, img'
+
+
+# Others
+# ----------------
+mbase_alert_dismissible: 1
+
+# Advance
+# ----------------
+mbase_bsflatit: 0
+mbase_animatecss: 0
+mbase_fontawesome: 0
+
+mbase_include_cdn_css:
+  - 'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
+mbase_include_cdn_js:
+
+mbase_excludes_css:
+  - core/misc/vertical-tabs.css
+  - core/modules/system/css/system.theme.css
+  - core/assets/vendor/normalize-css/normalize.css
+  - core/modules/system/css/system.module.css
+  - core/misc/dropbutton/dropbutton.css
+  - core/misc/dropbutton/dropbutton.theme.css
+
+mbase_excludes_js:
+  - core/assets/vendor/underscore/underscore-min.js
+  - core/assets/vendor/backbone/backbone-min.js
+  - core/misc/dropbutton/dropbutton.js
+  - core/modules/book/book.js
+  - themes/mbase/js/core/misc/dropbutton/dropbutton.js
+
+# Global
+# --------------
+mbase_toggle_name: 1
+mbase_toggle_search: 1

@@ -1,0 +1,49 @@
+name: Modern Base theme
+type: theme
+description: 'Base theme based on modern frontend frameworks. Help to create rapid modern web for drupal 8.'
+package: base
+# core: 8.x
+# version: VERSION
+stylesheets-remove:
+  - 'core/misc/vertical-tabs.css'
+  - '@system/css/system.theme.css'
+  - '@system/css/system.module.css'
+  - 'core/modules/system/css/system.theme.css'
+  - 'core/assets/vendor/normalize-css/normalize.css'  
+  - 'core/misc/dropbutton/dropbutton.css'
+  - 'core/misc/dropbutton/dropbutton.theme.css'
+# Remove some scripts
+javascript-remove:
+  
+
+# Add Main Bootstrap CDNs  
+bs-cdn-js: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'
+bs-cdn-css: 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css'
+
+libraries:
+ - mbase/globalscripts
+
+regions:
+  header: 'Header'
+  primary_menu: 'Primary Menu'
+  secondary_menu: 'Secondary Menu'
+  breadcrumb: 'Breadcrums'
+  highlighted: 'Highlignted'
+  help: 'Help'
+  content: 'Main Content'
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  footer: 'Footer'
+  page_top: 'Page Top'
+  page_bottom: 'Page Bottom'
+
+# version: '8.x-3.x-dev'
+# core: '8.x'
+# project: 'mbase'
+# datestamp: 1434064033
+
+# Information added by Drupal.org packaging script on 2015-07-24
+version: '8.x-1.0-alpha1'
+core: '8.x'
+project: 'mbase'
+datestamp: 1437747213

@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if breadcrumb %}
+  <nav class="row" role="navigation" aria-labelledby="system-breadcrumb">
+    <div class="large-12 columns">
+      <h2 id="system-breadcrumb" class="visually-hidden">{{ 'Breadcrumb'|t }}</h2>
+      <ul class="breadcrumbs">
+        {% for item in breadcrumb %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+{% endif %}
